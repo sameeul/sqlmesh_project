@@ -1,0 +1,26 @@
+# Environments
+venv/
+.env
+.venv
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# SQLMesh
+.cache/
+sqlmesh_state.duckdb
+logs/
+
+# Spark
+spark-warehouse/
+
+# Hive
+metastore_db/
+derby.log
+
+# Exports
+csv_exports/
+arc/

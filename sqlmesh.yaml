@@ -1,0 +1,12 @@
+model_defaults:
+  dialect: spark
+
+gateways:
+  spark_local:
+    connection:
+      type: spark
+    state_connection:
+      type: duckdb
+      database: /usr/axle/dev/sqlmesh_project/sqlmesh_state.duckdb
+
+default_gateway: spark_local
