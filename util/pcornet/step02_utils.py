@@ -1,21 +1,61 @@
 """Step02 schema application and validation helpers."""
 
-from pyspark.sql import functions as F
+from util.pcornet.step02_columns import complete_domain_schema_dict, required_domain_schema_dict
 
-from util.pcornet.utils import apply_schema as _apply_schema
+
+def _date_cast(col):
+    """Cast a column to date using multiple formats."""
+    from pyspark.sql import functions as F
+
+    return F.coalesce(
+        col.cast("date"),
+        F.to_date(col, format="dd-MMM-yy"),
+        F.to_date(col, format="MM-dd-yyyy"),
+        F.to_date(col, format="MM/dd/yyyy"),
+    )
 
 
 def apply_schema_to_df(df, schema_dict):
-    """Apply the PCORnet schema to a DataFrame."""
-    return _apply_schema(df, schema_dict)
+    """Apply the PCORnet schema to a DataFrame using string type names."""
+    from pyspark.sql import functions as F
+
+    # Ensure all columns are uppercase for casting
+    for original_col_name in df.columns:
+        df = df.withColumnRenamed(original_col_name, original_col_name.upper())
+
+    input_cols = {col for col in df.columns}
+    for col_name, col_type in schema_dict.items():
+        upper_col = col_name.upper()
+        if upper_col in input_cols:
+            if col_type == "date":
+                df = df.withColumn(upper_col, _date_cast(df[upper_col]))
+            else:
+                df = df.withColumn(upper_col, df[upper_col].cast(col_type))
+        else:
+            df = df.withColumn(upper_col, F.lit(None).cast(col_type))
+
+    # Rename columns to lowercase for cross-site unioning
+    for original_col_name in df.columns:
+        df = df.withColumnRenamed(original_col_name, original_col_name.lower())
+
+    # Trim string columns and replace empty strings with nulls
+    for col_name, data_type in df.dtypes:
+        if data_type == "string":
+            df = df.withColumn(col_name, F.trim(df[col_name]))
+            df = df.withColumn(
+                col_name,
+                F.when(df[col_name] != "", F.col(col_name)).otherwise(F.lit(None)),
+            )
+
+    return df
 
 
 def apply_schema_versioned(df, schema_dict, schema_dict_v, v_column):
     """Apply versioned schema based on the presence of a column."""
     lower_cols = [col.lower() for col in df.columns]
     if v_column.lower() in lower_cols:
-        return _apply_schema(df, schema_dict_v)
-    return _apply_schema(df, schema_dict)
+        return apply_schema_to_df(df, schema_dict_v)
+    return apply_schema_to_df(df, schema_dict)
 
 
 def validate_required_columns(df, required_columns, domain_name):
@@ -49,6 +89,8 @@ def validate_primary_key(df, pkey, domain_name):
         raise ValueError(
             f"Step02 primary key check failed for {domain_name}: missing {pkey}"
         )
+
+    from pyspark.sql import functions as F
 
     total = df.select(pkey).count()
     non_null = df.filter(F.col(pkey).isNotNull()).count()
