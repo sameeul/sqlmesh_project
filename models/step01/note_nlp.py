@@ -12,5 +12,5 @@ def entrypoint(context: ExecutionContext, **kwargs):
     return (
         context.spark.read.format("csv")
         .options(header="true", inferSchema="false")
-        .load(f"{'/usr/axle/dev/sqlmesh_project/csv_exports'}/note_nlp.csv")
+        .load("csv_exports/note_nlp.csv")
     )

@@ -13,7 +13,7 @@ def entrypoint(context: ExecutionContext, **kwargs):
     df = (
         context.spark.read.format("csv")
         .options(header="true", inferSchema="false")
-        .load(f"{'/usr/axle/dev/sqlmesh_project/csv_exports'}/demographic.csv")
+        .load("csv_exports/demographic.csv")
     )
     validate_required_domain(df, ['patid', 'birth_date', 'birth_time', 'sex', 'sexual_orientation', 'gender_identity', 'hispanic', 'race', 'biobank_flag', 'pat_pref_language_spoken', 'raw_sex', 'raw_sexual_orientation', 'raw_gender_identity', 'raw_hispanic', 'raw_race', 'raw_pat_pref_language_spoken'], "demographic")
     return df

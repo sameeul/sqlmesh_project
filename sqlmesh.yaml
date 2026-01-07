@@ -7,6 +7,6 @@ gateways:
       type: spark
     state_connection:
       type: duckdb
-      database: /usr/axle/dev/sqlmesh_project/sqlmesh_state.duckdb
+      database: sqlmesh_state.duckdb
 
 default_gateway: spark_local

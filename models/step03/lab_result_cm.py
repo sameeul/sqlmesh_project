@@ -19,7 +19,7 @@ def entrypoint(context: ExecutionContext, **kwargs):
     table_name = context.table("pcornet.step02_clean_lab_result_cm")
     df = context.spark.table(table_name)
 
-    site_id_df = read_csv(context.spark, "/usr/axle/dev/sqlmesh_project/mapping/site_id.csv")
+    site_id_df = read_csv(context.spark, "mapping/site_id.csv")
     df = add_site_id_col(df, site_id_df)
     df = apply_site_parsing_logic(df, site_id_df)
 
@@ -28,7 +28,7 @@ def entrypoint(context: ExecutionContext, **kwargs):
     df = create_datetime_col(df, "specimen_date", "specimen_time", "SPECIMEN_DATETIME")
     df = create_datetime_col(df, "result_date", "result_time", "RESULT_DATETIME")
 
-    covid_map = read_csv(context.spark, "/usr/axle/dev/sqlmesh_project/mapping/covid_test_loinc_map.csv")
+    covid_map = read_csv(context.spark, "mapping/covid_test_loinc_map.csv")
     df = df.join(
         covid_map,
         F.upper(df["raw_lab_name"]) == F.upper(covid_map["Covid19LabtestNames"]),

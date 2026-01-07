@@ -13,7 +13,7 @@ def entrypoint(context: ExecutionContext, **kwargs):
     df = (
         context.spark.read.format("csv")
         .options(header="true", inferSchema="false")
-        .load(f"{'/usr/axle/dev/sqlmesh_project/csv_exports'}/procedures.csv")
+        .load("csv_exports/procedures.csv")
     )
     validate_required_domain(df, ['proceduresid', 'patid', 'encounterid', 'enc_type', 'admit_date', 'providerid', 'px_date', 'px', 'px_type', 'px_source', 'ppx', 'raw_px', 'raw_px_type', 'raw_ppx'], "procedures")
     return df

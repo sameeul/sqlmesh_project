@@ -19,7 +19,7 @@ def entrypoint(context: ExecutionContext, **kwargs):
     table_name = context.table("pcornet.step02_clean_obs_clin")
     df = context.spark.table(table_name)
 
-    site_id_df = read_csv(context.spark, "/usr/axle/dev/sqlmesh_project/mapping/site_id.csv")
+    site_id_df = read_csv(context.spark, "mapping/site_id.csv")
     df = add_site_id_col(df, site_id_df)
     df = apply_site_parsing_logic(df, site_id_df)
 
@@ -44,7 +44,7 @@ def entrypoint(context: ExecutionContext, **kwargs):
     df = create_datetime_col(df, "obsclin_start_date", "obsclin_start_time", "OBSCLIN_START_DATETIME")
     df = create_datetime_col(df, "obsclin_stop_date", "obsclin_stop_time", "OBSCLIN_STOP_DATETIME")
 
-    mapping_df = read_csv(context.spark, "/usr/axle/dev/sqlmesh_project/mapping/mapping.csv")
+    mapping_df = read_csv(context.spark, "mapping/mapping.csv")
     df = add_mapped_vocab_code_col(df, mapping_df, "OBS_CLIN", "obsclin_type", "mapped_obsclin_type")
 
     return df

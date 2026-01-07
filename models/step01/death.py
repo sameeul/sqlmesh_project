@@ -13,7 +13,7 @@ def entrypoint(context: ExecutionContext, **kwargs):
     df = (
         context.spark.read.format("csv")
         .options(header="true", inferSchema="false")
-        .load(f"{'/usr/axle/dev/sqlmesh_project/csv_exports'}/death.csv")
+        .load("csv_exports/death.csv")
     )
     validate_required_domain(df, ['patid', 'death_date', 'death_date_impute', 'death_source', 'death_match_confidence'], "death")
     return df

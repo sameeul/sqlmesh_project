@@ -19,11 +19,11 @@ def entrypoint(context: ExecutionContext, **kwargs):
     table_name = context.table("pcornet.step02_clean_med_admin")
     df = context.spark.table(table_name)
 
-    site_id_df = read_csv(context.spark, "/usr/axle/dev/sqlmesh_project/mapping/site_id.csv")
+    site_id_df = read_csv(context.spark, "mapping/site_id.csv")
     df = add_site_id_col(df, site_id_df)
     df = apply_site_parsing_logic(df, site_id_df)
 
-    mapping_df = read_csv(context.spark, "/usr/axle/dev/sqlmesh_project/mapping/mapping.csv")
+    mapping_df = read_csv(context.spark, "mapping/mapping.csv")
     df = create_datetime_col(df, "medadmin_start_date", "medadmin_start_time", "MEDADMIN_START_DATETIME")
     df = create_datetime_col(df, "medadmin_stop_date", "medadmin_stop_time", "MEDADMIN_STOP_DATETIME")
     df = add_mapped_vocab_code_col(df, mapping_df, "MED_ADMIN", "medadmin_type", "mapped_medadmin_type")

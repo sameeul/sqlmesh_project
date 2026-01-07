@@ -19,7 +19,7 @@ def entrypoint(context: ExecutionContext, **kwargs):
     table_name = context.table("pcornet.step02_clean_dispensing")
     df = context.spark.table(table_name)
 
-    site_id_df = read_csv(context.spark, "/usr/axle/dev/sqlmesh_project/mapping/site_id.csv")
+    site_id_df = read_csv(context.spark, "mapping/site_id.csv")
     df = add_site_id_col(df, site_id_df)
     df = apply_site_parsing_logic(df, site_id_df)
 
