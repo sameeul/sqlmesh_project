@@ -14,7 +14,7 @@ from util.pcornet.step03_utils import (
     dialect="spark",
     tags=["step03"],
     columns={
-        "providerid": "string",
+        "providerid": "bigint",
         "provider_sex": "string",
         "provider_specialty_primary": "string",
         "provider_npi": "double",
