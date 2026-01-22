@@ -688,7 +688,7 @@ all_other_tables AS (
             , CAST(null as string)  AS encounterid
             , 'death_cause_code:' || dc.death_cause_code || '|death_cause:' || dc.death_cause AS source_value
             , xw.source_concept_id  AS source_concept_id
-            , dc.patid || '|' || dc.death_cause  AS pkey
+            , CAST(dc.patid || '|' || dc.death_cause AS string)  AS pkey
         FROM pcornet.step03_prepared_death_cause dc
         INNER JOIN pcornet.step04_p2o_code_xwalk xw 
             ON xw.CDM_TBL = 'DEATH_CAUSE' 
@@ -705,7 +705,7 @@ all_other_tables AS (
             , CAST(null as string)  AS encounterid
             , 'NDC:' || d.ndc       AS source_value
             , xw.source_concept_id  AS source_concept_id
-            , dispensingid          AS pkey
+            , CAST(dispensingid AS string)          AS pkey
         FROM pcornet.step03_prepared_dispensing d
         INNER JOIN pcornet.step04_p2o_code_xwalk xw 
             ON xw.CDM_TBL = 'DISPENSING' 
@@ -722,7 +722,7 @@ all_other_tables AS (
             , i.encounterid             AS encounterid
             , 'vx_code_type:' || vx_code_type || '|vx_code:' || vx_code AS source_value
             , xw.source_concept_id      AS source_concept_id
-            , immunizationid            AS pkey
+            , CAST(immunizationid AS string)            AS pkey
         FROM pcornet.step03_prepared_immunization i
         INNER JOIN pcornet.step04_p2o_code_xwalk xw 
             ON xw.CDM_TBL = 'IMMUNIZATION' 
@@ -739,7 +739,7 @@ all_other_tables AS (
             , encounterid               AS encounterid
             , 'medadmin_type:' || medadmin_type || '|medadmin_code:' || medadmin_code AS source_value
             , xw.source_concept_id      AS source_concept_id
-            , medadminid                AS pkey
+            , CAST(medadminid AS string)                AS pkey
         FROM pcornet.step03_prepared_med_admin m
         INNER JOIN pcornet.step04_p2o_code_xwalk xw 
             ON xw.CDM_TBL = 'MED_ADMIN' 
@@ -757,7 +757,7 @@ all_other_tables AS (
             , encounterid                   AS encounterid
             , 'rxnorm_cui:' || rxnorm_cui   AS source_value
             , xw.source_concept_id          AS source_concept_id
-            , prescribingid                 AS pkey
+            , CAST(prescribingid AS string)                 AS pkey
         FROM pcornet.step03_prepared_prescribing p
         INNER JOIN pcornet.step04_p2o_code_xwalk xw 
             ON xw.CDM_TBL = 'PRESCRIBING' 
