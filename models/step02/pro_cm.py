@@ -16,9 +16,9 @@ from util.pcornet.step02_utils import (
     dialect="spark",
     tags=["step02"],
     columns={
-        "pro_cm_id": "string",
-        "patid": "string",
-        "encounterid": "string",
+        "pro_cm_id": "bigint",
+        "patid": "bigint",
+        "encounterid": "bigint",
         "pro_date": "date",
         "pro_time": "string",
         "pro_type": "string",

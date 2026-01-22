@@ -16,8 +16,8 @@ from util.pcornet.step02_utils import (
     dialect="spark",
     tags=["step02"],
     columns={
-        "addressid": "string",
-        "patid": "string",
+        "addressid": "bigint",
+        "patid": "bigint",
         "address_use": "string",
         "address_type": "string",
         "address_preferred": "string",

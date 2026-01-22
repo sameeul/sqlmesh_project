@@ -16,7 +16,7 @@ from util.pcornet.step02_utils import (
     dialect="spark",
     tags=["step02"],
     columns={
-        "patid": "string",
+        "patid": "bigint",
         "death_date": "date",
         "death_date_impute": "string",
         "death_source": "string",

@@ -16,9 +16,9 @@ from util.pcornet.step02_utils import (
     dialect="spark",
     tags=["step02"],
     columns={
-        "conditionid": "string",
-        "patid": "string",
-        "encounterid": "string",
+        "conditionid": "bigint",
+        "patid": "bigint",
+        "encounterid": "bigint",
         "report_date": "date",
         "resolve_date": "date",
         "onset_date": "date",

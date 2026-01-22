@@ -17,7 +17,7 @@ from util.pcornet.step02_utils import (
     tags=["step02"],
     columns={
         "note_id": "bigint",
-        "person_id": "string",
+        "person_id": "bigint",
         "note_date": "date",
         "note_datetime": "timestamp",
         "note_type_concept_id": "int",
@@ -26,9 +26,9 @@ from util.pcornet.step02_utils import (
         "note_text": "string",
         "encoding_concept_id": "int",
         "language_concept_id": "int",
-        "provider_id": "int",
-        "visit_occurrence_id": "int",
-        "visit_detail_id": "int",
+        "provider_id": "bigint",
+        "visit_occurrence_id": "bigint",
+        "visit_detail_id": "bigint",
         "note_source_value": "string",
     },
 )
