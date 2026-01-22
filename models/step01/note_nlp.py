@@ -6,7 +6,22 @@ from sqlmesh import ExecutionContext, model
     kind="full",
     dialect="spark",
     tags=["step01"],
-    columns={"NOTE_NLP_ID": "string", "NOTE_ID": "string", "SECTION_CONCEPT_ID": "string", "SNIPPET": "string", "OFFSET": "string", "LEXICAL_VARIANT": "string", "NOTE_NLP_CONCEPT_ID": "string", "NOTE_NLP_SOURCE_CONCEPT_ID": "string", "NLP_SYSTEM": "string", "NLP_DATE": "string", "NLP_DATETIME": "string", "TERM_EXISTS": "string", "TERM_TEMPORAL": "string", "TERM_MODIFIERS": "string"},
+    columns={
+        "NOTE_NLP_ID": "string",
+        "NOTE_ID": "string",
+        "SECTION_CONCEPT_ID": "string",
+        "SNIPPET": "string",
+        "OFFSET": "string",
+        "LEXICAL_VARIANT": "string",
+        "NOTE_NLP_CONCEPT_ID": "string",
+        "NOTE_NLP_SOURCE_CONCEPT_ID": "string",
+        "NLP_SYSTEM": "string",
+        "NLP_DATE": "string",
+        "NLP_DATETIME": "string",
+        "TERM_EXISTS": "string",
+        "TERM_TEMPORAL": "string",
+        "TERM_MODIFIERS": "string",
+    },
 )
 def entrypoint(context: ExecutionContext, **kwargs):
     return (

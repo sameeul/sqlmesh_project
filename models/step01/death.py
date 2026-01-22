@@ -7,7 +7,13 @@ from util.pcornet.step01_validation import validate_required_domain
     kind="full",
     dialect="spark",
     tags=["step01"],
-    columns={"PATID": "string", "DEATH_DATE": "string", "DEATH_DATE_IMPUTE": "string", "DEATH_SOURCE": "string", "DEATH_MATCH_CONFIDENCE": "string"},
+    columns={
+        "PATID": "string",
+        "DEATH_DATE": "string",
+        "DEATH_DATE_IMPUTE": "string",
+        "DEATH_SOURCE": "string",
+        "DEATH_MATCH_CONFIDENCE": "string",
+    },
 )
 def entrypoint(context: ExecutionContext, **kwargs):
     df = (
@@ -15,5 +21,15 @@ def entrypoint(context: ExecutionContext, **kwargs):
         .options(header="true", inferSchema="false")
         .load("csv_exports/death.csv")
     )
-    validate_required_domain(df, ['patid', 'death_date', 'death_date_impute', 'death_source', 'death_match_confidence'], "death")
+    validate_required_domain(
+        df,
+        [
+            "patid",
+            "death_date",
+            "death_date_impute",
+            "death_source",
+            "death_match_confidence",
+        ],
+        "death",
+    )
     return df

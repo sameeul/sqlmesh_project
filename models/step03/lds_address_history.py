@@ -13,7 +13,21 @@ from util.pcornet.step03_utils import (
     kind="full",
     dialect="spark",
     tags=["step03"],
-    columns={"addressid": "string", "patid": "string", "address_use": "string", "address_type": "string", "address_preferred": "string", "address_city": "string", "address_state": "string", "address_zip5": "string", "address_zip9": "string", "address_county": "string", "address_period_start": "date", "address_period_end": "date", "data_partner_id": "int"},
+    columns={
+        "addressid": "string",
+        "patid": "string",
+        "address_use": "string",
+        "address_type": "string",
+        "address_preferred": "string",
+        "address_city": "string",
+        "address_state": "string",
+        "address_zip5": "string",
+        "address_zip9": "string",
+        "address_county": "string",
+        "address_period_start": "date",
+        "address_period_end": "date",
+        "data_partner_id": "int",
+    },
 )
 def entrypoint(context: ExecutionContext, **kwargs):
     table_name = context.table("pcornet.step02_clean_lds_address_history")

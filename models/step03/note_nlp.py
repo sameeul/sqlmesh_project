@@ -13,7 +13,23 @@ from util.pcornet.step03_utils import (
     kind="full",
     dialect="spark",
     tags=["step03"],
-    columns={"note_nlp_id": "bigint", "note_id": "bigint", "section_concept_id": "int", "snippet": "string", "offset": "string", "lexical_variant": "string", "note_nlp_concept_id": "int", "note_nlp_source_concept_id": "int", "nlp_system": "string", "nlp_date": "date", "nlp_datetime": "timestamp", "term_exists": "string", "term_temporal": "string", "term_modifiers": "string", "data_partner_id": "int"},
+    columns={
+        "note_nlp_id": "bigint",
+        "note_id": "bigint",
+        "section_concept_id": "int",
+        "snippet": "string",
+        "offset": "string",
+        "lexical_variant": "string",
+        "note_nlp_concept_id": "int",
+        "note_nlp_source_concept_id": "int",
+        "nlp_system": "string",
+        "nlp_date": "date",
+        "nlp_datetime": "timestamp",
+        "term_exists": "string",
+        "term_temporal": "string",
+        "term_modifiers": "string",
+        "data_partner_id": "int",
+    },
 )
 def entrypoint(context: ExecutionContext, **kwargs):
     table_name = context.table("pcornet.step02_clean_note_nlp")
@@ -22,6 +38,5 @@ def entrypoint(context: ExecutionContext, **kwargs):
     site_id_df = read_csv(context.spark, "mapping/site_id.csv")
     df = add_site_id_col(df, site_id_df)
     df = apply_site_parsing_logic(df, site_id_df)
-
 
     return df

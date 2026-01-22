@@ -13,7 +13,24 @@ from util.pcornet.step03_utils import (
     kind="full",
     dialect="spark",
     tags=["step03"],
-    columns={"conditionid": "string", "patid": "string", "encounterid": "string", "report_date": "date", "resolve_date": "date", "onset_date": "date", "condition_status": "string", "condition": "string", "condition_type": "string", "condition_source": "string", "raw_condition_status": "string", "raw_condition": "string", "raw_condition_type": "string", "raw_condition_source": "string", "data_partner_id": "int", "mapped_condition_type": "string"},
+    columns={
+        "conditionid": "string",
+        "patid": "string",
+        "encounterid": "string",
+        "report_date": "date",
+        "resolve_date": "date",
+        "onset_date": "date",
+        "condition_status": "string",
+        "condition": "string",
+        "condition_type": "string",
+        "condition_source": "string",
+        "raw_condition_status": "string",
+        "raw_condition": "string",
+        "raw_condition_type": "string",
+        "raw_condition_source": "string",
+        "data_partner_id": "int",
+        "mapped_condition_type": "string",
+    },
 )
 def entrypoint(context: ExecutionContext, **kwargs):
     table_name = context.table("pcornet.step02_clean_condition")
@@ -24,6 +41,8 @@ def entrypoint(context: ExecutionContext, **kwargs):
     df = apply_site_parsing_logic(df, site_id_df)
 
     mapping_df = read_csv(context.spark, "mapping/mapping.csv")
-    df = add_mapped_vocab_code_col(df, mapping_df, "CONDITION", "condition_type", "mapped_condition_type")
+    df = add_mapped_vocab_code_col(
+        df, mapping_df, "CONDITION", "condition_type", "mapped_condition_type"
+    )
 
     return df

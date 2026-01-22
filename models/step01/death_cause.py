@@ -6,7 +6,14 @@ from sqlmesh import ExecutionContext, model
     kind="full",
     dialect="spark",
     tags=["step01"],
-    columns={"PATID": "string", "DEATH_CAUSE": "string", "DEATH_CAUSE_CODE": "string", "DEATH_CAUSE_TYPE": "string", "DEATH_CAUSE_SOURCE": "string", "DEATH_CAUSE_CONFIDENCE": "string"},
+    columns={
+        "PATID": "string",
+        "DEATH_CAUSE": "string",
+        "DEATH_CAUSE_CODE": "string",
+        "DEATH_CAUSE_TYPE": "string",
+        "DEATH_CAUSE_SOURCE": "string",
+        "DEATH_CAUSE_CONFIDENCE": "string",
+    },
 )
 def entrypoint(context: ExecutionContext, **kwargs):
     return (

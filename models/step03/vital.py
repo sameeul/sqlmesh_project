@@ -13,7 +13,32 @@ from util.pcornet.step03_utils import (
     kind="full",
     dialect="spark",
     tags=["step03"],
-    columns={"vitalid": "string", "patid": "string", "encounterid": "string", "measure_date": "date", "measure_time": "string", "vital_source": "string", "ht": "double", "wt": "double", "diastolic": "double", "systolic": "double", "original_bmi": "double", "bp_position": "string", "smoking": "string", "tobacco": "string", "tobacco_type": "string", "raw_diastolic": "string", "raw_systolic": "string", "raw_bp_position": "string", "raw_smoking": "string", "raw_tobacco": "string", "raw_tobacco_type": "string", "data_partner_id": "int", "MEASURE_DATETIME": "timestamp", "corrected_bp_position": "string"},
+    columns={
+        "vitalid": "string",
+        "patid": "string",
+        "encounterid": "string",
+        "measure_date": "date",
+        "measure_time": "string",
+        "vital_source": "string",
+        "ht": "double",
+        "wt": "double",
+        "diastolic": "double",
+        "systolic": "double",
+        "original_bmi": "double",
+        "bp_position": "string",
+        "smoking": "string",
+        "tobacco": "string",
+        "tobacco_type": "string",
+        "raw_diastolic": "string",
+        "raw_systolic": "string",
+        "raw_bp_position": "string",
+        "raw_smoking": "string",
+        "raw_tobacco": "string",
+        "raw_tobacco_type": "string",
+        "data_partner_id": "int",
+        "MEASURE_DATETIME": "timestamp",
+        "corrected_bp_position": "string",
+    },
 )
 def entrypoint(context: ExecutionContext, **kwargs):
     table_name = context.table("pcornet.step02_clean_vital")
@@ -26,6 +51,8 @@ def entrypoint(context: ExecutionContext, **kwargs):
     from pyspark.sql import functions as F
 
     df = create_datetime_col(df, "measure_date", "measure_time", "MEASURE_DATETIME")
-    df = df.withColumn("corrected_bp_position", F.coalesce(df["bp_position"], F.lit("NI")))
+    df = df.withColumn(
+        "corrected_bp_position", F.coalesce(df["bp_position"], F.lit("NI"))
+    )
 
     return df

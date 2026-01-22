@@ -13,7 +13,14 @@ from util.pcornet.step03_utils import (
     kind="full",
     dialect="spark",
     tags=["step03"],
-    columns={"patid": "string", "death_date": "date", "death_date_impute": "string", "death_source": "string", "death_match_confidence": "string", "data_partner_id": "int"},
+    columns={
+        "patid": "string",
+        "death_date": "date",
+        "death_date_impute": "string",
+        "death_source": "string",
+        "death_match_confidence": "string",
+        "data_partner_id": "int",
+    },
 )
 def entrypoint(context: ExecutionContext, **kwargs):
     table_name = context.table("pcornet.step02_clean_death")
@@ -22,6 +29,5 @@ def entrypoint(context: ExecutionContext, **kwargs):
     site_id_df = read_csv(context.spark, "mapping/site_id.csv")
     df = add_site_id_col(df, site_id_df)
     df = apply_site_parsing_logic(df, site_id_df)
-
 
     return df

@@ -13,7 +13,15 @@ from util.pcornet.step03_utils import (
     kind="full",
     dialect="spark",
     tags=["step03"],
-    columns={"providerid": "string", "provider_sex": "string", "provider_specialty_primary": "string", "provider_npi": "double", "provider_npi_flag": "string", "raw_provider_specialty_primary": "string", "data_partner_id": "int"},
+    columns={
+        "providerid": "string",
+        "provider_sex": "string",
+        "provider_specialty_primary": "string",
+        "provider_npi": "double",
+        "provider_npi_flag": "string",
+        "raw_provider_specialty_primary": "string",
+        "data_partner_id": "int",
+    },
 )
 def entrypoint(context: ExecutionContext, **kwargs):
     table_name = context.table("pcornet.step02_clean_provider")
@@ -22,6 +30,5 @@ def entrypoint(context: ExecutionContext, **kwargs):
     site_id_df = read_csv(context.spark, "mapping/site_id.csv")
     df = add_site_id_col(df, site_id_df)
     df = apply_site_parsing_logic(df, site_id_df)
-
 
     return df

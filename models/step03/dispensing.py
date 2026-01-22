@@ -13,7 +13,24 @@ from util.pcornet.step03_utils import (
     kind="full",
     dialect="spark",
     tags=["step03"],
-    columns={"dispensingid": "string", "patid": "string", "prescribingid": "string", "dispense_date": "date", "ndc": "string", "dispense_source": "string", "dispense_sup": "double", "dispense_amt": "double", "dispense_dose_disp": "double", "dispense_dose_disp_unit": "string", "dispense_route": "string", "raw_ndc": "string", "raw_dispense_dose_disp": "string", "raw_dispense_dose_disp_unit": "string", "raw_dispense_route": "string", "data_partner_id": "int"},
+    columns={
+        "dispensingid": "string",
+        "patid": "string",
+        "prescribingid": "string",
+        "dispense_date": "date",
+        "ndc": "string",
+        "dispense_source": "string",
+        "dispense_sup": "double",
+        "dispense_amt": "double",
+        "dispense_dose_disp": "double",
+        "dispense_dose_disp_unit": "string",
+        "dispense_route": "string",
+        "raw_ndc": "string",
+        "raw_dispense_dose_disp": "string",
+        "raw_dispense_dose_disp_unit": "string",
+        "raw_dispense_route": "string",
+        "data_partner_id": "int",
+    },
 )
 def entrypoint(context: ExecutionContext, **kwargs):
     table_name = context.table("pcornet.step02_clean_dispensing")
@@ -22,6 +39,5 @@ def entrypoint(context: ExecutionContext, **kwargs):
     site_id_df = read_csv(context.spark, "mapping/site_id.csv")
     df = add_site_id_col(df, site_id_df)
     df = apply_site_parsing_logic(df, site_id_df)
-
 
     return df

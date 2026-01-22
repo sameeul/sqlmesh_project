@@ -13,7 +13,36 @@ from util.pcornet.step03_utils import (
     kind="full",
     dialect="spark",
     tags=["step03"],
-    columns={"obsgenid": "string", "patid": "string", "encounterid": "string", "obsgen_providerid": "string", "obsgen_start_date": "date", "obsgen_start_time": "string", "obsgen_stop_date": "date", "obsgen_stop_time": "string", "obsgen_type": "string", "obsgen_code": "string", "obsgen_result_qual": "string", "obsgen_result_text": "string", "obsgen_result_num": "double", "obsgen_result_modifier": "string", "obsgen_result_unit": "string", "obsgen_table_modified": "string", "obsgen_id_modified": "string", "obsgen_source": "string", "obsgen_abn_ind": "string", "raw_obsgen_name": "string", "raw_obsgen_code": "string", "raw_obsgen_type": "string", "raw_obsgen_result": "string", "raw_obsgen_unit": "string", "data_partner_id": "int", "mapped_obsgen_type": "string", "OBSGEN_START_DATETIME": "timestamp", "OBSGEN_STOP_DATETIME": "timestamp"},
+    columns={
+        "obsgenid": "string",
+        "patid": "string",
+        "encounterid": "string",
+        "obsgen_providerid": "string",
+        "obsgen_start_date": "date",
+        "obsgen_start_time": "string",
+        "obsgen_stop_date": "date",
+        "obsgen_stop_time": "string",
+        "obsgen_type": "string",
+        "obsgen_code": "string",
+        "obsgen_result_qual": "string",
+        "obsgen_result_text": "string",
+        "obsgen_result_num": "double",
+        "obsgen_result_modifier": "string",
+        "obsgen_result_unit": "string",
+        "obsgen_table_modified": "string",
+        "obsgen_id_modified": "string",
+        "obsgen_source": "string",
+        "obsgen_abn_ind": "string",
+        "raw_obsgen_name": "string",
+        "raw_obsgen_code": "string",
+        "raw_obsgen_type": "string",
+        "raw_obsgen_result": "string",
+        "raw_obsgen_unit": "string",
+        "data_partner_id": "int",
+        "mapped_obsgen_type": "string",
+        "OBSGEN_START_DATETIME": "timestamp",
+        "OBSGEN_STOP_DATETIME": "timestamp",
+    },
 )
 def entrypoint(context: ExecutionContext, **kwargs):
     table_name = context.table("pcornet.step02_clean_obs_gen")
@@ -35,16 +64,22 @@ def entrypoint(context: ExecutionContext, **kwargs):
             cols_to_drop.append("obsgen_start_time")
         if cols_to_drop:
             df = df.drop(*cols_to_drop)
-            
+
         df = df.withColumnRenamed("obsgen_date", "obsgen_start_date")
         df = df.withColumnRenamed("obsgen_time", "obsgen_start_time")
         df = df.withColumn("obsgen_stop_date", F.lit(None).cast("date"))
         df = df.withColumn("obsgen_stop_time", F.lit(None).cast("string"))
 
-    df = create_datetime_col(df, "obsgen_start_date", "obsgen_start_time", "OBSGEN_START_DATETIME")
-    df = create_datetime_col(df, "obsgen_stop_date", "obsgen_stop_time", "OBSGEN_STOP_DATETIME")
+    df = create_datetime_col(
+        df, "obsgen_start_date", "obsgen_start_time", "OBSGEN_START_DATETIME"
+    )
+    df = create_datetime_col(
+        df, "obsgen_stop_date", "obsgen_stop_time", "OBSGEN_STOP_DATETIME"
+    )
 
     mapping_df = read_csv(context.spark, "mapping/mapping.csv")
-    df = add_mapped_vocab_code_col(df, mapping_df, "OBS_GEN", "obsgen_type", "mapped_obsgen_type")
+    df = add_mapped_vocab_code_col(
+        df, mapping_df, "OBS_GEN", "obsgen_type", "mapped_obsgen_type"
+    )
 
     return df

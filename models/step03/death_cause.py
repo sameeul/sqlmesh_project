@@ -13,7 +13,16 @@ from util.pcornet.step03_utils import (
     kind="full",
     dialect="spark",
     tags=["step03"],
-    columns={"patid": "string", "death_cause": "string", "death_cause_code": "string", "death_cause_type": "string", "death_cause_source": "string", "death_cause_confidence": "string", "data_partner_id": "int", "mapped_death_cause_code": "string"},
+    columns={
+        "patid": "string",
+        "death_cause": "string",
+        "death_cause_code": "string",
+        "death_cause_type": "string",
+        "death_cause_source": "string",
+        "death_cause_confidence": "string",
+        "data_partner_id": "int",
+        "mapped_death_cause_code": "string",
+    },
 )
 def entrypoint(context: ExecutionContext, **kwargs):
     table_name = context.table("pcornet.step02_clean_death_cause")
@@ -24,6 +33,8 @@ def entrypoint(context: ExecutionContext, **kwargs):
     df = apply_site_parsing_logic(df, site_id_df)
 
     mapping_df = read_csv(context.spark, "mapping/mapping.csv")
-    df = add_mapped_vocab_code_col(df, mapping_df, "DEATH_CAUSE", "death_cause_code", "mapped_death_cause_code")
+    df = add_mapped_vocab_code_col(
+        df, mapping_df, "DEATH_CAUSE", "death_cause_code", "mapped_death_cause_code"
+    )
 
     return df

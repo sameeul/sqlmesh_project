@@ -1,6 +1,13 @@
 from sqlmesh import ExecutionContext, model
-from util.pcornet.step02_columns import complete_domain_schema_dict, required_domain_schema_dict
-from util.pcornet.step02_utils import apply_schema_versioned, validate_required_columns_any, validate_primary_key
+from util.pcornet.step02_columns import (
+    complete_domain_schema_dict,
+    required_domain_schema_dict,
+)
+from util.pcornet.step02_utils import (
+    apply_schema_versioned,
+    validate_required_columns_any,
+    validate_primary_key,
+)
 
 
 @model(
@@ -8,7 +15,34 @@ from util.pcornet.step02_utils import apply_schema_versioned, validate_required_
     kind="full",
     dialect="spark",
     tags=["step02"],
-    columns={"obsgenid": "string", "patid": "string", "encounterid": "string", "obsgen_providerid": "string", "obsgen_start_date": "date", "obsgen_start_time": "string", "obsgen_stop_date": "date", "obsgen_stop_time": "string", "obsgen_type": "string", "obsgen_code": "string", "obsgen_result_qual": "string", "obsgen_result_text": "string", "obsgen_result_num": "double", "obsgen_result_modifier": "string", "obsgen_result_unit": "string", "obsgen_table_modified": "string", "obsgen_id_modified": "string", "obsgen_source": "string", "obsgen_abn_ind": "string", "raw_obsgen_name": "string", "raw_obsgen_code": "string", "raw_obsgen_type": "string", "raw_obsgen_result": "string", "raw_obsgen_unit": "string", "obsgen_date": "date", "obsgen_time": "string"},
+    columns={
+        "obsgenid": "string",
+        "patid": "string",
+        "encounterid": "string",
+        "obsgen_providerid": "string",
+        "obsgen_start_date": "date",
+        "obsgen_start_time": "string",
+        "obsgen_stop_date": "date",
+        "obsgen_stop_time": "string",
+        "obsgen_type": "string",
+        "obsgen_code": "string",
+        "obsgen_result_qual": "string",
+        "obsgen_result_text": "string",
+        "obsgen_result_num": "double",
+        "obsgen_result_modifier": "string",
+        "obsgen_result_unit": "string",
+        "obsgen_table_modified": "string",
+        "obsgen_id_modified": "string",
+        "obsgen_source": "string",
+        "obsgen_abn_ind": "string",
+        "raw_obsgen_name": "string",
+        "raw_obsgen_code": "string",
+        "raw_obsgen_type": "string",
+        "raw_obsgen_result": "string",
+        "raw_obsgen_unit": "string",
+        "obsgen_date": "date",
+        "obsgen_time": "string",
+    },
 )
 def entrypoint(context: ExecutionContext, **kwargs):
     table_name = context.table("pcornet.step01_parsed_obs_gen")

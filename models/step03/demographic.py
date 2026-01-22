@@ -13,7 +13,26 @@ from util.pcornet.step03_utils import (
     kind="full",
     dialect="spark",
     tags=["step03"],
-    columns={"patid": "string", "birth_date": "date", "birth_time": "string", "sex": "string", "sexual_orientation": "string", "gender_identity": "string", "hispanic": "string", "race": "string", "biobank_flag": "string", "pat_pref_language_spoken": "string", "raw_sex": "string", "raw_sexual_orientation": "string", "raw_gender_identity": "string", "raw_hispanic": "string", "raw_race": "string", "raw_pat_pref_language_spoken": "string", "data_partner_id": "int", "BIRTH_DATETIME": "timestamp"},
+    columns={
+        "patid": "string",
+        "birth_date": "date",
+        "birth_time": "string",
+        "sex": "string",
+        "sexual_orientation": "string",
+        "gender_identity": "string",
+        "hispanic": "string",
+        "race": "string",
+        "biobank_flag": "string",
+        "pat_pref_language_spoken": "string",
+        "raw_sex": "string",
+        "raw_sexual_orientation": "string",
+        "raw_gender_identity": "string",
+        "raw_hispanic": "string",
+        "raw_race": "string",
+        "raw_pat_pref_language_spoken": "string",
+        "data_partner_id": "int",
+        "BIRTH_DATETIME": "timestamp",
+    },
 )
 def entrypoint(context: ExecutionContext, **kwargs):
     table_name = context.table("pcornet.step02_clean_demographic")

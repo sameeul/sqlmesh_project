@@ -7,7 +7,11 @@ from util.pcornet.step05_utils import build_collision_lookup
     kind="full",
     dialect="spark",
     tags=["step05"],
-    columns={"location_id_51_bit": "bigint", "hashed_id": "string", "collision_bits": "int"},
+    columns={
+        "location_id_51_bit": "bigint",
+        "hashed_id": "string",
+        "collision_bits": "int",
+    },
 )
 def entrypoint(context: ExecutionContext, **kwargs):
     df = context.spark.table(context.table("pcornet.step04_domain_mapping_location"))

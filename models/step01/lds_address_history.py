@@ -6,7 +6,20 @@ from sqlmesh import ExecutionContext, model
     kind="full",
     dialect="spark",
     tags=["step01"],
-    columns={"ADDRESSID": "string", "PATID": "string", "ADDRESS_USE": "string", "ADDRESS_TYPE": "string", "ADDRESS_PREFERRED": "string", "ADDRESS_CITY": "string", "ADDRESS_STATE": "string", "ADDRESS_ZIP5": "string", "ADDRESS_ZIP9": "string", "ADDRESS_COUNTY": "string", "ADDRESS_PERIOD_START": "string", "ADDRESS_PERIOD_END": "string"},
+    columns={
+        "ADDRESSID": "string",
+        "PATID": "string",
+        "ADDRESS_USE": "string",
+        "ADDRESS_TYPE": "string",
+        "ADDRESS_PREFERRED": "string",
+        "ADDRESS_CITY": "string",
+        "ADDRESS_STATE": "string",
+        "ADDRESS_ZIP5": "string",
+        "ADDRESS_ZIP9": "string",
+        "ADDRESS_COUNTY": "string",
+        "ADDRESS_PERIOD_START": "string",
+        "ADDRESS_PERIOD_END": "string",
+    },
 )
 def entrypoint(context: ExecutionContext, **kwargs):
     return (
