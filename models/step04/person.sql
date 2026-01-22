@@ -100,7 +100,7 @@ SELECT
                 -- Create primary key by hashing patient id to 128bit hexademical with md5,
                 -- and converting to 51 bit int by first taking first 15 hexademical digits and converting
                 --  to base 10 (60 bit) and then bit masking to extract the first 51 bits
-                , md5(site_patid) as hashed_id
+                , md5(CAST(site_patid AS string)) as hashed_id
                 FROM demographic
             )
         )

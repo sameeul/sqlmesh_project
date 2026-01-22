@@ -35,7 +35,7 @@ with condition as (
         CAST(null as string) as unit_source_value,
         CAST(null as string) as qualifier_source_value,
         'CONDITION' as domain_source,
-        conditionid as site_pkey,
+        CAST(conditionid AS string) as site_pkey,
         data_partner_id,
         CAST(NULL AS string) AS payload
     FROM pcornet.step03_prepared_condition c
@@ -66,7 +66,7 @@ demographic as (
         CAST(null as string) as unit_source_value,
         CAST(null as string) as qualifier_source_value,
         'DEMOGRAPHIC' domain_source,
-        demo.patid as site_pkey,
+        CAST(demo.patid AS string) as site_pkey,
         data_partner_id,
         CAST(NULL AS string) AS payload
     FROM pcornet.step03_prepared_demographic demo
@@ -102,7 +102,7 @@ UNION ALL
         , CAST(null as string) as unit_source_value
         , CAST(null as string) as qualifier_source_value
         , 'DEMOGRAPHIC' as domain_source
-        , demo.patid as site_pkey
+        , CAST(demo.patid AS string) as site_pkey
         , data_partner_id
         , CAST(NULL AS string) AS payload
     FROM pcornet.step03_prepared_demographic demo     
@@ -138,7 +138,7 @@ UNION ALL
         , CAST(null as string) as unit_source_value
         , CAST(null as string) as qualifier_source_value
         , 'DEMOGRAPHIC' as domain_source 
-        , demo.patid as site_pkey
+        , CAST(demo.patid AS string) as site_pkey
         , data_partner_id
         , CAST(NULL AS string) AS payload
     FROM pcornet.step03_prepared_demographic demo   
@@ -177,7 +177,7 @@ diagnosis as (
         CAST(null as string) as unit_source_value,
         CAST(null as string) as qualifier_source_value,
         'DIAGNOSIS' as domain_source,
-        diagnosisid as site_pkey,
+        CAST(diagnosisid AS string) as site_pkey,
         data_partner_id,
         CAST(NULL AS string) AS payload
     FROM pcornet.step03_prepared_diagnosis d
@@ -233,7 +233,7 @@ lab_result_cm as (
         , CAST(lab.result_unit as string) as unit_source_value
         , CAST(lab.result_modifier as string) as qualifier_source_value
         , 'LAB_RESULT_CM' as domain_source
-        , lab_result_cm_id as site_pkey
+        , CAST(lab_result_cm_id AS string) as site_pkey
         , data_partner_id
         , CAST(NULL AS string) AS payload
         FROM pcornet.step03_prepared_lab_result_cm lab
@@ -279,7 +279,7 @@ obs_clin as (
         CAST(obs.obsclin_result_unit as string) AS unit_source_value, -- lookup unit_concept_code
         CAST(obs.obsclin_result_qual as string) AS qualifier_source_value,
         'OBS_CLIN' AS domain_source,
-        obsclinid as site_pkey,
+        CAST(obsclinid AS string) as site_pkey,
         data_partner_id,
         CAST(NULL AS string) AS payload
     FROM pcornet.step03_prepared_obs_clin obs
@@ -309,7 +309,7 @@ obs_gen as (
     CAST(null as string) AS unit_source_value, -- lookup unit_concept_code
     CAST(null as string) AS qualifier_source_value,
         'OBS_GEN' AS domain_source,
-        obsgenid as site_pkey,
+        CAST(obsgenid AS string) as site_pkey,
         data_partner_id,
         CAST(NULL AS string) AS payload
     FROM pcornet.step03_prepared_obs_gen obsg
@@ -340,7 +340,7 @@ obsgen_sdoh as (
     CAST(null as string) AS unit_source_value, -- lookup unit_concept_code
     CAST(null as string) AS qualifier_source_value,
     'OBS_GEN' AS domain_source,
-    obsgenid as site_pkey,
+        CAST(obsgenid AS string) as site_pkey,
     data_partner_id,
     CAST(NULL AS string) AS payload
     FROM pcornet.step03_prepared_obs_gen obs
@@ -381,7 +381,7 @@ obsgen_sdoh as (
     CAST(null as string) AS unit_source_value, -- lookup unit_concept_code
     CAST(null as string) AS qualifier_source_value,
     'OBS_GEN' AS domain_source,
-    obsgenid as site_pkey,
+    CAST(obsgenid AS string) as site_pkey,
     data_partner_id,
     CAST(NULL AS string) AS payload
     FROM pcornet.step03_prepared_obs_gen obs
@@ -427,7 +427,7 @@ pro_cm as (
         CAST(null as string) AS unit_source_value, -- lookup unit_concept_code
         CAST(null as string) AS qualifier_source_value,
         'PRO_CM' AS domain_source,
-        pro_cm_id as site_pkey,
+        CAST(pro_cm_id AS string) as site_pkey,
         data_partner_id,
         CAST(NULL AS string) AS payload
     FROM pcornet.step03_prepared_pro_cm pro
@@ -463,7 +463,7 @@ procedures as (
         CAST(null as string) AS unit_source_value,
         CAST(null as string) AS qualifier_source_value,
         'PROCEDURES' AS domain_source,
-        proceduresid as site_pkey,
+        CAST(proceduresid AS string) as site_pkey,
         data_partner_id,
         CAST(NULL AS string) AS payload
     FROM
@@ -502,7 +502,7 @@ vital as (
         CAST(null as string) AS unit_source_value,
         CAST(null as string) AS qualifier_source_value,
         'VITAL' AS domain_source,
-        vitalid as site_pkey,
+        CAST(vitalid AS string) as site_pkey,
         data_partner_id,
         CAST(NULL AS string) AS payload
     FROM pcornet.step03_prepared_vital v
@@ -541,7 +541,7 @@ UNION ALL
         CAST(null as string) AS unit_source_value,
         CAST(null as string) AS qualifier_source_value,
         'VITAL' AS domain_source,
-        vitalid as site_pkey,
+        CAST(vitalid AS string) as site_pkey,
         data_partner_id,
         CAST(NULL AS string) AS payload
     FROM pcornet.step03_prepared_vital v
@@ -576,7 +576,7 @@ encounter as (
         CAST(null as string) AS unit_source_value,
         CAST(null as string) AS qualifier_source_value,
         'ENCOUNTER' domain_source,
-        encounterid as site_pkey,
+        CAST(encounterid AS string) as site_pkey,
         data_partner_id,
         CAST(NULL AS string) AS payload
     FROM pcornet.step03_prepared_encounter d
@@ -617,7 +617,7 @@ UNION ALL
         CAST(null as string) AS unit_source_value,
         CAST(null as string) AS qualifier_source_value,
         'ENCOUNTER' as domain_source,
-        encounterid as site_pkey,
+        CAST(encounterid AS string) as site_pkey,
         data_partner_id,
         CAST(NULL AS string) AS payload
     FROM pcornet.step03_prepared_encounter d
@@ -648,7 +648,7 @@ UNION ALL
         CAST(null as string) AS unit_source_value,
         CAST(null as string) AS qualifier_source_value,
         'ENCOUNTER' as domain_source,
-        encounterid as site_pkey,
+        CAST(encounterid AS string) as site_pkey,
         data_partner_id,
         CAST(NULL AS string) AS payload
     FROM pcornet.step03_prepared_encounter d
@@ -677,7 +677,7 @@ all_other_tables AS (
         CAST(null as string) AS unit_source_value,
         CAST(null as string) AS qualifier_source_value,
         other.domain_source AS domain_source,
-        other.pkey AS site_pkey,
+        CAST(other.pkey AS string) AS site_pkey,
         data_partner_id,
         CAST(NULL AS string) AS payload
     FROM (
