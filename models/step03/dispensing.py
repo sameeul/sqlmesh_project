@@ -14,9 +14,9 @@ from util.pcornet.step03_utils import (
     dialect="spark",
     tags=["step03"],
     columns={
-        "dispensingid": "string",
-        "patid": "string",
-        "prescribingid": "string",
+        "dispensingid": "bigint",
+        "patid": "bigint",
+        "prescribingid": "bigint",
         "dispense_date": "date",
         "ndc": "string",
         "dispense_source": "string",

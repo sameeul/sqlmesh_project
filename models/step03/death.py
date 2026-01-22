@@ -14,7 +14,7 @@ from util.pcornet.step03_utils import (
     dialect="spark",
     tags=["step03"],
     columns={
-        "patid": "string",
+        "patid": "bigint",
         "death_date": "date",
         "death_date_impute": "string",
         "death_source": "string",

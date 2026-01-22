@@ -14,9 +14,9 @@ from util.pcornet.step03_utils import (
     dialect="spark",
     tags=["step03"],
     columns={
-        "case_patid": "string",
+        "case_patid": "bigint",
         "buddy_num": "int",
-        "control_patid": "string",
+        "control_patid": "bigint",
         "case_age": "int",
         "case_sex": "string",
         "case_race": "string",
