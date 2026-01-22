@@ -5,8 +5,24 @@ gateways:
   spark_local:
     connection:
       type: spark
+      concurrent_tasks: 1
+      config:
+        spark.master: "local[2]" 
+        spark.driver.cores: "2"
+        spark.driver.memory: "8g"
+        spark.sql.warehouse.dir: "/work/sqlmesh_project/spark-warehouse"
+        spark.sql.shuffle.partitions: "16"
+        spark.default.parallelism: "16"
+        spark.sql.adaptive.enabled: "true"
+        spark.sql.catalogImplementation: "hive"
     state_connection:
       type: duckdb
       database: sqlmesh_state.duckdb
+      concurrent_tasks: 1
+      connector_config:
+        config:
+          threads: 1
+          memory_limit: "8GB"
+
 
 default_gateway: spark_local
